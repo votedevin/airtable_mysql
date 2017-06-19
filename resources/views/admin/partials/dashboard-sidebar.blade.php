@@ -78,7 +78,7 @@
 
           @endif
 
-            <li>
+          <!--  <li>
               <a href="/pages/agencies">
                 <i class="fa fa-th"></i> <span>Agencies</span>
               </a>
@@ -91,6 +91,11 @@
             <li>
               <a href="/pages/commitments">
                 <i class="fa fa-th"></i> <span>Commitments</span>
+              </a>
+            </li>-->
+            <li>
+              <a href="/pages/menuedit">
+                <i class="fa fa-th"></i> <span>Menu Edit</span>
               </a>
             </li>
             <li>

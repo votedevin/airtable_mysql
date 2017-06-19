@@ -25,6 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   -->
   <link rel="stylesheet" href="../css/dataTables.bootstrap.css">
   <link rel="stylesheet" href="../css/_all-skins.min.css">
+  <link rel="stylesheet" href="../css/custom.css">
   <script src="../js/jquery-2.2.3.min.js"></script>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -33,21 +34,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 
   <![endif]-->
-  <link href="../resources/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
-  <link href="../resources/css/chosen.min.css" rel="stylesheet" type="text/css" />
-  <link href="../resources/css/jquery.dataTables.yadcf.css" rel="stylesheet" type="text/css" />
-  <link href="../resources/css/shCore.css" rel="stylesheet" type="text/css" />
-  <link href="../resources/css/shThemeDefault.css" rel="stylesheet" type="text/css" />
 
+<script src="../js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-1.12.4.js">
+  </script>
+  <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js">
+  </script>
+
+  <script type="text/javascript" class="init">
   
-  <script src="../js/jquery-2.2.3.min.js"></script>
-  <script src="../resources/js/chosen.jquery.min.js"></script>
-  <script src="../resources/js/jquery.dataTables.min.js"></script>
-  <script src="../resources/js/jquery.dataTables.yadcf.js"></script>
-  <script src="../resources/js/dom_source_example2.js"></script>
-  <script type="text/javascript" src="../resources/js/shCore.js"></script>
-  <script type="text/javascript" src="../resources/js/shBrushJScript.js"></script>
-  
+$(document).ready(function() {
+  $('#example').DataTable( {
+    "scrollY": 400,
+    "scrollX": true
+  } );
+} );
+
+  </script>
 <style>
 body{
   font-size: 13x;
@@ -104,9 +109,8 @@ body{
   display: none;
   text-align: center;
 }
-.agencytd.sorting_asc{
-  width: 325px !important;
-}
+
+
 </style>
 </head>
 
@@ -124,26 +128,59 @@ body{
 <div class="wrapper">
 
   <!-- Main Header -->
-  <header class="main-header">
+<header class="main-header" style="background-color: #ffffff;">
+  <div class="toplink">
 
-    <!-- Logo -->
-    <a href="" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>NYC</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>NYC</b></span>
-    </a>
+  <ul>
+    @foreach($menus as $menu)
+      @if($menu->menu_id > 8)
+        <li>
+          <a target="_blank" rel="nofollow" href="{{$menu->menu_link}}">{{$menu->menu_label}} &nbsp&nbsp&nbsp|</a>
+        </li>
+      @endif
+    @endforeach
+  </ul>
+ </div>
+   <div class="top-bar-title">
+   <a href="http://proposals.votedevin.com/" style="color: #ffffff;"><img src="../../resources/images/logo_header.png" style="padding-right: 10px;"> NY Speaks</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>Menu
+      </button>
+   </div>
 
-    <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="text-center"><h4 style="margin-top: 15px; color: #ffffff;">NYC Capital Commitments</h4></div>
+      <nav class="navbar navbar-static-top" style="margin: 0; background-color: #ffffff; color: #000000; min-height: 48px;border-bottom: 1px solid #dee0e3;">
+      <div class="container">
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 17.5%; height: 48px !important; box-shadow: none;">
+          <ul class="nav navbar-nav">
+            <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_in"><b>Sign In</b></a></li>
+            <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_up"><b>Register</b></a></li>
+            @foreach($menus as $menu)
+              @if($menu->menu_id < 9)
+                @if($menu->menu_id==5)
+                  <li class="active"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+                @else
+                <li ><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+                @endif
+              @else
+                <li style="display: none;"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}}</b></a></li>
+              @endif
+            @endforeach
+          </ul>
+        </div>
+      </div>
+        <div class="title" style="font-size: 16px;display: none;">
+         <ul style="padding-top: 13px;">
+            <li><a href="http://budgets.votedevin.com/agencies" style="margin-right: 10px;"><b>Agencies</b></a></li>
+            <li><a href="http://budgets.votedevin.com/projects" style="margin-right: 10px;"><b>Projects</b></a></li>
+            <li><a href="http://budgets.votedevin.com/commitments" style="margin-right: 10px;"><b>Commitments</b></a></li>
+          </ul>
+        </div>
+      <!-- /.container-fluid -->
     </nav>
-  </header>
+</header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
 
@@ -176,15 +213,11 @@ body{
     <section class="content">
       <div class="row">
         
-         
-
-  
-        
       </div> 
 
 
           <div class="box box-primary box-solid">
-            <div class="box-header">
+            <div class="box-header" style="background-color: #004A83;">
             <h4>Commitments</h4> 
     
             </div>
@@ -213,7 +246,7 @@ body{
               
             </div> 
             <div class="box-body">
-              <table id="example" cellpadding="0" cellspacing="0" border="0" class="display">
+              <table id="example" class="display nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                   <th class= "agencytd">Agency Name</th>
@@ -263,112 +296,18 @@ body{
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2017 <a href="#">Company</a>.</strong> All rights reserved.
+     <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. It was funded and developed by Friends of Devin Balkind, a political organization urging you to Vote for Devin Balkind for New York City Public Advocate in November. Learn more at <a href="http://proposals.votedevin.com/" target="_blank"> VoteDevin.com</a>.
   </footer>
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane active" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:;">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:;">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="pull-right-container">
-                  <span class="label label-danger pull-right">70%</span>
-                </span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-
-
-<!-- ./wrapper -->
-
-<!-- REQUIRED JS SCRIPTS -->
-
-<!-- jQuery 2.2.3 -->
-
-<!-- Bootstrap 3.3.6 -->
-<script src="../js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="../js/jquery.dataTables.min.js"></script>
-<script src="../js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="../js/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="../js/fastclick.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../js/demo.js"></script>
-<!-- page script -->
-<script src="../js/bootstrap-select.js"></script>
 
 <script>
 var myVar;

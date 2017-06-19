@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Menuedit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -46,22 +47,24 @@ class ProjectController extends Controller
      */
     public function projectview()
     {
+        $menus = DB::table('menu')->get();
         $projects = DB::table('projects')->leftJoin('agencies', 'projects.project_managingagency', '=', 'agency_recordid')->select('projects.id','projects.project_recordid','projects.project_projectid','agencies.magencyname','projects.project_description','projects.project_commitments','projects.project_totalcost')->orderBy('projects.project_projectid','desc')->get();
-        return view('frontend.projects', compact('projects'));
+        return view('frontend.projects', compact('projects','menus'));
     }
 
     //agencyname find
     public function agencyfind($id)
     {
-
+        $menus = DB::table('menu')->get();
         $projects = DB::table('projects')->where('project_managingagency', $id)->leftJoin('agencies', 'projects.project_managingagency', '=', 'agency_recordid')->select('projects.id','projects.project_recordid','projects.project_projectid','agencies.magencyname','projects.project_description','projects.project_commitments','projects.project_totalcost')->orderBy('projects.project_projectid','desc')->get();
        
 
-        return view('frontend.projects', compact('projects'));
+        return view('frontend.projects', compact('projects','menus'));
     }
     //agencyname find-admin
-        public function agencyfind1($id)
+    public function agencyfind1($id)
     {
+        $menus = DB::table('menu')->get();
         $user           = \Auth::user();
         $userRole       = $user->hasRole('user');
         $editorRole     = $user->hasRole('editor');
@@ -83,10 +86,11 @@ class ProjectController extends Controller
 
     public function projectfind($id)
     {
+        $menus = DB::table('menu')->get();
         $projects = DB::table('projects')->where('project_recordid', $id)->leftJoin('agencies', 'projects.project_managingagency', '=', 'agency_recordid')->select('projects.project_projectid','agencies.magencyname','projects.project_description','projects.project_commitments','projects.project_totalcost','projects.project_citycost','projects.project_noncitycost')->first();
        $commitments = DB::table('commitments')->where('projectid', $id)->get();
 
-        return view('frontend.profile', compact('commitments','projects'));
+        return view('frontend.profile', compact('commitments','projects','menus'));
     }
 
     public function projectfind1($id)

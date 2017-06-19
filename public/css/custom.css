@@ -1,0 +1,122 @@
+.toplink{
+	background-color: #002d50;
+	height: 36px;
+}
+.toplink ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    float: right;
+    margin-right: 200px;
+
+}
+
+.toplink li {
+    float: left;
+}
+
+.toplink li a {
+    display: block;
+    padding: 8px;
+    color: #ffffff;
+}
+.top-bar-title{
+	padding-left: 12.5%;
+	background-color: #004A83;
+	font-size: 25px;
+	font-family: "Source Sans Pro", "Helvetica", "Arial", sans-serif !important;
+    color: #ffffff;
+    height: 84px;
+}
+.main-sidebar{
+	padding-top: 160px;
+}
+.content-wrapper{
+	padding-top: 70px;
+}
+.nav.navbar-nav li{
+	padding-right: 40px;
+}
+.skin-blue .main-header .navbar .nav>li>a {
+	color: #000000;
+	font-size: 17px;
+	padding: 13px 0px 13px 0px;
+}
+.skin-blue .main-header .navbar .nav>li>a:hover, .skin-blue .main-header .navbar .nav>li>a:active,.skin-blue .main-header .navbar .nav>.active>a{
+	color: #004A83;
+	background: rgba(0,0,0,0.0);
+	padding: 13px 0px 13px 0px;
+    border-bottom: 2px solid;
+}
+a{
+	color: #004A83;
+}
+.dropdown-menu>li>a {
+	color: #000;
+}
+.container{
+	margin: 0;
+}
+@media (max-width: 1200px){
+.navbar-collapse.pull-left {
+    float: left;
+}
+.collapse.navbar-collapse.pull-left{
+	margin-left: 0 !important;
+}
+.nav.navbar-nav li{
+	padding-right: 20px;
+}
+}
+@media (max-width: 760px){
+
+.navbar-collapse.pull-left {
+    float: none !important;
+    background-color: #004A83 !important;
+    color: #ffffff;
+}
+.skin-blue .main-header .navbar .nav>li>a{
+	color: #ffffff;
+	padding: 0;
+}
+.skin-blue .main-header .navbar .nav>li>a:hover, .skin-blue .main-header .navbar .nav>li>a:active {
+	color: #ffffff;
+}
+.skin-blue .main-header .navbar .nav>.active>a {
+	color: #ffffff;
+	padding: 0;
+	border-bottom: 0;
+}
+li {
+	display: inline !important;
+}
+.toplink ul{
+	display: none;
+}
+.top-bar-title
+{
+	padding-left: 0; 
+	height: 48px;
+	padding: 5px;
+}
+.top-bar-title img{
+	display: none;
+}
+
+#navbar-collapse{
+	margin-left: 0px !important;
+}
+.navbar-toggle {
+	padding: 3px 15px;
+}
+.container{
+	padding-left: 0;
+}
+.nav.navbar-nav{
+	padding-left: 20px;
+}
+.title{
+	display: initial !important;
+}
+}

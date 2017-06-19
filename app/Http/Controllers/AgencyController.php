@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Agency;
+use App\Models\Menuedit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -57,8 +58,9 @@ class AgencyController extends Controller
      */
     public function agencyview()
     {
+        $menus = DB::table('menu')->get();
         $agencys = DB::table('agencies')->get();
-        return view('frontend.agencies', compact('agencys'));
+        return view('frontend.agencies', compact('agencys','menus'));
     }
 
     /**

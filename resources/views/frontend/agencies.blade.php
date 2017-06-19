@@ -24,7 +24,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect.
   -->
   <link rel="stylesheet" href="../css/_all-skins.min.css">
-
+  <link rel="stylesheet" href="../css/custom.css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -99,26 +99,61 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <div class="wrapper">
 
   <!-- Main Header -->
-  <header class="main-header">
 
-    <!-- Logo -->
-    <a href="" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>NYC</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>NYC</b></span>
-    </a>
+<header class="main-header" style="background-color: #ffffff;">
+  <div class="toplink">
 
-    <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
-      <!-- Navbar Right Menu -->
-      <div class="text-center"><h4 style="margin-top: 15px; color: #ffffff;">NYC Capital Commitments</h4></div>
+  <ul>
+    @foreach($menus as $menu)
+    @if($menu->menu_id > 8)
+    <li>
+      <a target="_blank" rel="nofollow" href="{{$menu->menu_link}}">{{$menu->menu_label}} &nbsp&nbsp&nbsp|</a>
+    </li>
+      @endif
+      @endforeach
+  </ul>
+ </div>
+   <div class="top-bar-title">
+   <a href="http://proposals.votedevin.com/" style="color: #ffffff;"><img src="../../resources/images/logo_header.png" style="padding-right: 10px;"> NY Speaks</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>Menu
+      </button>
+   </div>
+
+      <nav class="navbar navbar-static-top" style="margin: 0; background-color: #ffffff; color: #000000; min-height: 48px;border-bottom: 1px solid #dee0e3;">
+      <div class="container">
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 17.5%; height: 48px !important; box-shadow: none;">
+          <ul class="nav navbar-nav">
+            <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_in"><b>Sign In</b></a></li>
+            <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_up"><b>Register</b></a></li>
+            @foreach($menus as $menu)
+              @if($menu->menu_id < 9)
+                @if($menu->menu_id==5)
+                  <li class="active"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+                @else
+                <li ><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+                @endif
+              @else
+                <li style="display: none;"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}}</b></a></li>
+              @endif
+            @endforeach
+
+          </ul>
+        </div>
+      </div>
+        <div class="title" style="font-size: 16px;display: none;">
+         <ul style="padding-top: 13px;">
+            <li><a href="http://budgets.votedevin.com/agencies" style="margin-right: 10px;"><b>Agencies</b></a></li>
+            <li><a href="http://budgets.votedevin.com/projects" style="margin-right: 10px;"><b>Projects</b></a></li>
+            <li><a href="http://budgets.votedevin.com/commitments" style="margin-right: 10px;"><b>Commitments</b></a></li>
+          </ul>
+        </div>
+      <!-- /.container-fluid -->
     </nav>
-  </header>
+</header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
 
@@ -146,8 +181,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      
-      <div class="callout callout-info" style="margin-bottom: 0!important;">
+        <div class="navbar-header" style="display: none;">
+          <ul>
+            <li><a href="http://budgets.votedevin.com/agencies"><b>Agencies</b></a></li>
+            <li><a href="http://budgets.votedevin.com/projects"><b>Projects</b></a></li>
+            <li><a href="http://budgets.votedevin.com/Commitments"><b>Commitments</b></a></li>
+          </ul>
+        </div>
+      <div class="callout callout-info" style="margin-bottom: 0 !important;background-color: #004A83 !important;">
         <h4 style="margin-bottom: 0;">Agencies</h4> 
       </div>
     
@@ -171,8 +212,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             </div>            
           </div>
-          <div class="col-sm-8 col-md-8">
-          <h4><b style="margin-left:30px;"> Total Cost</b> <a href="/agencies/totalcostdesc"> <i class="fa fa-sort-amount-desc" aria-hidden="true"></i> </a><a href="/agencies/totalcostasc"> <i class="fa fa-sort-amount-asc" aria-hidden="true"></i> </a><b style="margin-left:65px; "> Projects </b> <a href="/agencies/projectsdesc"><i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a><a href="/agencies/projectsasc"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a><b style="margin-left:65px;"> Commitments </b><a href="/agencies/commitmentsdesc"><i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a><a href="/agencies/commitmentsasc"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></h4>
+          <div class="col-sm-12 col-md-8" style="padding-top: 6px; padding-bottom: 10px;">
+
+            <div class="col-sm-4 col-md-4">
+              <b style="font-size: 16px;"> Total Cost <a href="/agencies/totalcostdesc"> <i class="fa fa-sort-amount-desc" aria-hidden="true" ></i> </a><a href="/agencies/totalcostasc"> <i class="fa fa-sort-amount-asc" aria-hidden="true" style="margin-right:30px;"></i> </a></b>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <b style="font-size: 16px;"> Project <a href="/agencies/projectsdesc"><i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a><a href="/agencies/projectsasc"><i class="fa fa-sort-amount-asc" aria-hidden="true" style="margin-right:30px;"></i></a></b>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <b style="font-size: 16px;"> Commitments<a href="/agencies/commitmentsdesc"><i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a><a href="/agencies/commitmentsasc"><i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></b>
+            </div>
+          </ul>
 
           </div>
         
@@ -208,84 +259,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2017 <a href="#">Company</a>.</strong> All rights reserved.
+    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>. It was funded and developed by Friends of Devin Balkind, a political organization urging you to Vote for Devin Balkind for New York City Public Advocate in November. Learn more at <a href="http://proposals.votedevin.com/" target="_blank"> VoteDevin.com</a>.
   </footer>
 
   <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Create the tabs -->
-    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-      <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <!-- Home tab content -->
-      <div class="tab-pane active" id="control-sidebar-home-tab">
-        <h3 class="control-sidebar-heading">Recent Activity</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:;">
-              <i class="menu-icon fa fa-birthday-cake bg-red"></i>
 
-              <div class="menu-info">
-                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-                <p>Will be 23 on April 24th</p>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-        <h3 class="control-sidebar-heading">Tasks Progress</h3>
-        <ul class="control-sidebar-menu">
-          <li>
-            <a href="javascript:;">
-              <h4 class="control-sidebar-subheading">
-                Custom Template Design
-                <span class="pull-right-container">
-                  <span class="label label-danger pull-right">70%</span>
-                </span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-              </div>
-            </a>
-          </li>
-        </ul>
-        <!-- /.control-sidebar-menu -->
-
-      </div>
-      <!-- /.tab-pane -->
-      <!-- Stats tab content -->
-      <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
-      <!-- /.tab-pane -->
-      <!-- Settings tab content -->
-      <div class="tab-pane" id="control-sidebar-settings-tab">
-        <form method="post">
-          <h3 class="control-sidebar-heading">General Settings</h3>
-
-          <div class="form-group">
-            <label class="control-sidebar-subheading">
-              Report panel usage
-              <input type="checkbox" class="pull-right" checked>
-            </label>
-
-            <p>
-              Some information about this general settings option
-            </p>
-          </div>
-          <!-- /.form-group -->
-        </form>
-      </div>
-      <!-- /.tab-pane -->
-    </div>
-  </aside>
   <!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->

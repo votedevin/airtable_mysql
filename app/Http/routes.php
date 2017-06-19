@@ -230,6 +230,11 @@ Route::group(['middleware' => 'auth'], function () {
     	'as' 		=> 'dashboard',
 	    'uses' 		=> 'CommitmentController@index'
 	]);
+	Route::get('/pages/menuedit', [
+    	'as' 		=> 'dashboard',
+	    'uses' 		=> 'MenueditController@index'
+	]);
+	Route::resource('menu_update', 'MenueditController', ['except' => ['update']]);
 	Route::get('/pages/datasync', [
     	'as' 		=> 'dashboard',
 	    'uses' 		=> 'CommitmentController@datasync'
