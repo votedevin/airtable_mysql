@@ -52,7 +52,7 @@
 						// To get this value, look at the Authentication notes in the API docs.
 						// Example: $ curl https://api.airtable.com/v0/appZZ12rVdg6qzyC/foo...
 						// .. where "appZZ12rVdg6qzyC" is the App ID.
-						define ( 'AIRTABLE_APP_ID', 'appw6jRyGYbFN687t' );
+						define ( 'AIRTABLE_APP_ID', 'app2luH9QZWxA1bhz' );
 						
 						// Airtable API URL.
 						// Default: https://api.airtable.com/v0/
@@ -153,8 +153,8 @@
 								$projects= sizeof(explode(",", $project));
 								$commitments= sizeof(explode(",", $commitment));
 
-								$sql = "INSERT INTO agencies (agency_recordid, magency, magencyname, magencyacro, projects, commitments, total_project_cost, commitments_cost, commitments_noncity_cost, createtime)
-								VALUES ( '{$record['id']}', '{$record['fields']['magency']}', '{$record['fields']['magencyname']}', '{$record['fields']['magencyacro']}', '{$projects}', '{$commitments}', '{$record['fields']['Total Project Cost']}', '{$record['fields']['Commitments Cost']}', '{$record['fields']['Commitments NonCity Cost']}', '{$record['createdTime']}');";
+								$sql = "INSERT INTO agencies (agency_recordid, magency, magencyname, magencyacro, projects, commitments, total_project_cost, commitments_cost, commitments_noncity_cost)
+								VALUES ( '{$record['id']}', '{$record['fields']['magency']}', '{$record['fields']['magencyname']}', '{$record['fields']['magencyacro']}', '{$projects}', '{$commitments}', '{$record['fields']['Total Project Cost']}', '{$record['fields']['Commitments Cost']}', '{$record['fields']['Commitments NonCity Cost']}');";
 
 								if ($conn->query($sql) === TRUE) {
 								    echo "New record created successfully";

@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Agency;
-use App\Models\Menuedit;
+use App\Models\Menutop;
+use App\Models\Menumain;
+use App\Models\Menuleft;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -58,9 +60,11 @@ class AgencyController extends Controller
      */
     public function agencyview()
     {
-        $menus = DB::table('menu')->get();
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
         $agencys = DB::table('agencies')->get();
-        return view('frontend.agencies', compact('agencys','menus'));
+        return view('frontend.agencies', compact('agencys','menus','menutops','menulefts','menumains'));
     }
 
     /**
@@ -72,49 +76,73 @@ class AgencyController extends Controller
     public function totalcostdesc()
     {
         $agencys = DB::table('agencies')->orderBy('agencies.total_project_cost','desc')->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
 
 
     public function totalcostasc()
     {
         $agencys = DB::table('agencies')->orderBy('agencies.total_project_cost','asc')->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
 
     public function projectsdesc()
     {
         $agencys = DB::table('agencies')->orderBy('agencies.projects','desc')->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
 
     public function projectsasc()
     {
         $agencys = DB::table('agencies')->orderBy('agencies.projects','asc')->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
 
     public function commitmentsdesc()
     {
         $agencys = DB::table('agencies')->orderBy('agencies.commitments','desc')->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
 
     public function commitmentsasc()
     {
         $agencys = DB::table('agencies')->orderBy('agencies.commitments','asc')->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
     public function find(Request $request)
     {
         $find = $request->input('find');
         $agencys = DB::table('agencies')->where('magencyname',  'like', '%'.$find.'%')->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
     public function commitmentlink($id)
     {
         $agencys = DB::table('agencies')->where('magency', $id)->get();
-        return view('frontend.agencies', compact('agencys'));
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
     }
 
 

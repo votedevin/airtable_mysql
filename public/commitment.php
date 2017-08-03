@@ -52,7 +52,7 @@
 						// To get this value, look at the Authentication notes in the API docs.
 						// Example: $ curl https://api.airtable.com/v0/appZZ12rVdg6qzyC/foo...
 						// .. where "appZZ12rVdg6qzyC" is the App ID.
-						define ( 'AIRTABLE_APP_ID', 'appw6jRyGYbFN687t' );
+						define ( 'AIRTABLE_APP_ID', 'app2luH9QZWxA1bhz' );
 						
 						// Airtable API URL.
 						// Default: https://api.airtable.com/v0/
@@ -157,8 +157,8 @@
 									$commitmentdescription = ' ';
 								}
 
-								$sql = "INSERT INTO commitments (commitment_recordid, budgetline, fmsnumber, managingagency, projectid, description, commitmentcode, commitmentdescription, citycost, noncitycost, plancommdate, createtime)
-								VALUES ( '{$record['id']}', '{$record['fields']['budgetline']}', '{$record['fields']['fmsnumber']}', '{$managingagency}', '{$projectid}', '{$description}', '{$record['fields']['commitmentcode']}', '{$commitmentdescription}', '{$record['fields']['citycost']}', '{$record['fields']['noncitycost']}','{$record['fields']['plancommdate']}','{$record['createdTime']}');";
+								$sql = "INSERT INTO commitments (commitment_recordid, budgetline, fmsnumber, managingagency, projectid, description, commitmentcode, commitmentdescription, citycost, noncitycost, plancommdate)
+								VALUES ( '{$record['id']}', '{$record['fields']['budgetline']}', '{$record['fields']['fmsnumber']}', '{$managingagency}', '{$projectid}', '{$description}', '{$record['fields']['commitmentcode']}', '{$commitmentdescription}', '{$record['fields']['citycost']}', '{$record['fields']['noncitycost']}','{$record['fields']['plancommdate']}');";
 								if ($conn->query($sql) === TRUE) {
 								    echo "New record created successfully";
 								} else {

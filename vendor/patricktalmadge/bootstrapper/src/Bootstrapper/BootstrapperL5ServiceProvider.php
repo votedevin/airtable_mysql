@@ -6,7 +6,7 @@
 namespace Bootstrapper;
 
 use Bootstrapper\Bridges\Config\Laravel5Config;
-use Illuminate\Html\HtmlBuilder;
+use Collective\Html\HtmlBuilder;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -22,13 +22,6 @@ class BootstrapperL5ServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (!method_exists($this, 'publishes')) {
-            throw new \Exception(
-                "This Service Provider doesn't support Laravel 4 - please use
-                Bootstrapper\\BootstrapperServiceProvider"
-            );
-        }
-
         $this->publishes(
             [
                 __DIR__ . '/../config/config.php' => config_path(
@@ -202,18 +195,20 @@ class BootstrapperL5ServiceProvider extends ServiceProvider
     private function registerFormBuilder()
     {
         $this->app->bind(
-            'illuminate::html',
+            'collective::html',
             function ($app) {
-                return new HtmlBuilder($app->make('url'));
+                return new HtmlBuilder($app->make('url'), $app->make('view'));
             }
         );
         $this->app->bind(
             'bootstrapper::form',
             function ($app) {
+                $tokenMethod = method_exists($app['session.store'], 'getToken') ? 'getToken' : 'token';
                 $form = new Form(
-                    $app->make('illuminate::html'),
+                    $app->make('collective::html'),
                     $app->make('url'),
-                    $app['session.store']->getToken()
+                    $app->make('view'),
+                    $app['session.store']->$tokenMethod()
                 );
 
                 return $form->setSessionStore($app['session.store']);

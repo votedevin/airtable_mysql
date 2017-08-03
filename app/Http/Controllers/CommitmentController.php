@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Agency;
 use App\Models\Project;
 use App\Models\Commitment;
-use App\Models\Menuedit;
+use App\Models\Menutop;
+use App\Models\Menumain;
+use App\Models\Menuleft;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -49,9 +51,12 @@ class CommitmentController extends Controller
      */
     public function commitmentview()
     {
-        $menus = DB::table('menu')->get();
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menus'));
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
     }
 
     /**
@@ -84,39 +89,54 @@ class CommitmentController extends Controller
 
     public function noncitycostdesc()
     {
-        $menus = DB::table('menu')->get();
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.noncitycost','desc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menus'));
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
     }
 
     public function noncitycostasc()
     {
-        $menus = DB::table('menu')->get();
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.noncitycost','asc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menus'));
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
     }
 
     public function citycostdesc()
     {   
-        $menus = DB::table('menu')->get();
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.citycost','desc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menus'));
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
     }
 
     public function citycostasc()
     {
-        $menus = DB::table('menu')->get();
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.citycost','asc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menus'));
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
     }
 
 
     public function find(Request $request)
     {
-        $menus = DB::table('menu')->get();
+        $menutops = DB::table('menu_top')->get();
+        $menulefts = DB::table('menu_left')->get();
+        $menumains = DB::table('menu_main')->get();
+        $agencys = DB::table('agencies')->get();
         $find = $request->input('find');
         $commitments = DB::table('commitments')->where('commitmentdescription',  'like', '%'.$find.'%')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menus'));
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
     }
 
     public function updatecommitment()

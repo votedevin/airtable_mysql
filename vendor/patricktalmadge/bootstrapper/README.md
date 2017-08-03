@@ -19,6 +19,12 @@ Add the following to your `composer.json` file :
 },
 ```
 
+or execute
+
+```bash
+composer require patricktalmadge/bootstrapper
+```
+
 Then register Bootstrapper's service provider with Laravel:
 
 ```php
@@ -105,7 +111,7 @@ your vendor directory.
 
 ## Documentation
 
-- [Bootstrapper documentation](http://bootstrapper.eu1.frbit.net/)
+- [Bootstrapper documentation](http://bootstrapper.patrickrosemusic.co.uk/)
 - [Twitter Bootstrap documentation](http://getbootstrap.com/)
 - [Twitter Bootstrap on Github](https://github.com/twitter/bootstrap)
 

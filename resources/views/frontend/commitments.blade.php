@@ -130,52 +130,48 @@ body{
   <!-- Main Header -->
 <header class="main-header" style="background-color: #ffffff;">
   <div class="toplink">
-
   <ul>
-    @foreach($menus as $menu)
-      @if($menu->menu_id > 8)
-        <li>
-          <a target="_blank" rel="nofollow" href="{{$menu->menu_link}}">{{$menu->menu_label}} &nbsp&nbsp&nbsp|</a>
-        </li>
-      @endif
-    @endforeach
+    @foreach($menutops as $menu_top)
+    <li>
+      <a target="_blank" rel="nofollow" href="{{$menu_top->menu_top_link}}">{{$menu_top->menu_top_label}} &nbsp&nbsp&nbsp|</a>
+    </li>
+      @endforeach
   </ul>
  </div>
    <div class="top-bar-title">
-   <a href="http://proposals.votedevin.com/" style="color: #ffffff;"><img src="../../resources/images/logo_header.png" style="padding-right: 10px;"> NY Speaks</a>
+   <a href="http://proposals.votedevin.com/" style="color: #ffffff;"><img src="../../resources/images/logo.png" style="padding-right: 10px;"> Capital Budgets</a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
             <i class="fa fa-bars"></i>Menu
       </button>
    </div>
 
       <nav class="navbar navbar-static-top" style="margin: 0; background-color: #ffffff; color: #000000; min-height: 48px;border-bottom: 1px solid #dee0e3;">
-      <div class="container">
+      <div class="container" style="width: 100%">
 
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 17.5%; height: 48px !important; box-shadow: none;">
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 12%; height: 48px !important; box-shadow: none;">
           <ul class="nav navbar-nav">
             <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_in"><b>Sign In</b></a></li>
             <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_up"><b>Register</b></a></li>
-            @foreach($menus as $menu)
-              @if($menu->menu_id < 9)
-                @if($menu->menu_id==5)
-                  <li class="active"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+            @foreach($menumains as $menu_main)
+                @if($menu_main->menu_main_label=='Projects')
+                  <li class="active"><a href="{{$menu_main->menu_main_link}}"><b>{{$menu_main->menu_main_label}} </b><span class="sr-only">(current)</span></a></li>
                 @else
-                <li ><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+                <li ><a href="{{$menu_main->menu_main_link}}"><b>{{$menu_main->menu_main_label}} </b><span class="sr-only">(current)</span></a></li>
                 @endif
-              @else
-                <li style="display: none;"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}}</b></a></li>
-              @endif
+            @endforeach
+            @foreach($menutops as $menu_top)
+                <li style="display: none;"><a href="{{$menu_top->menu_top_link}}"><b>{{$menu_top->menu_top_label}}</b></a></li>
             @endforeach
           </ul>
         </div>
       </div>
         <div class="title" style="font-size: 16px;display: none;">
          <ul style="padding-top: 13px;">
-            <li><a href="http://budgets.votedevin.com/agencies" style="margin-right: 10px;"><b>Agencies</b></a></li>
-            <li><a href="http://budgets.votedevin.com/projects" style="margin-right: 10px;"><b>Projects</b></a></li>
-            <li><a href="http://budgets.votedevin.com/commitments" style="margin-right: 10px;"><b>Commitments</b></a></li>
+          @foreach($menulefts as $menu_left)
+            <li><a href="{{$menu_left->menu_left_link}}" style="margin-right: 10px;"><b>{{$menu_left->menu_left_label}}</b></a></li>
+          @endforeach
           </ul>
         </div>
       <!-- /.container-fluid -->
@@ -187,15 +183,23 @@ body{
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-   <!-- Sidebar Menu -->
+      <!-- Sidebar user panel (optional) -->
+   
+
+      <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header"></li>
         <!-- Optionally, you can add icons to the links -->
-        
-        <li><a href="/agencies"><i class="fa fa-tasks"></i> <span> Agencies </span></a></li>
-        <li><a href="/projects"><i class="ion ion-clipboard"></i> <span> Projects </span></a></li>
-        <li class="active"><a href="/commitments"><i class="fa fa-database"></i> <span> Commitments </span></a></li>
+      
+        @foreach($menulefts as $index => $menu_left)
+          @if($index ==2)
+           <li class="active"><a href="{{$menu_left->menu_left_link}}"><i class="fa fa-circle-o"></i> <span>{{$menu_left->menu_left_label}} </span></a></li>
+          @else
+          <li><a href="{{$menu_left->menu_left_link}}"><i class="fa fa-circle-o"></i> <span>{{$menu_left->menu_left_label}} </span></a></li>
+          @endif
+        @endforeach
       </ul>
+      <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>

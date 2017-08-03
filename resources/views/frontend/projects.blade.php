@@ -54,7 +54,9 @@ $(document).ready(function() {
 
   </script>
   <style>
-
+.box.box-solid.box-primary>.box-header a {
+    color: #000;
+}
 #loader {
   position: absolute;
   left: 50%;
@@ -72,6 +74,9 @@ $(document).ready(function() {
   animation: spin 2s linear infinite;
 }
 
+.dataTables_wrapper .dataTables_filter input{
+  color: black;
+}
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
@@ -105,7 +110,25 @@ $(document).ready(function() {
   display: none;
   text-align: center;
 }
-
+@media (min-width: 1100px){
+  #example_length{
+  position: absolute;
+  top: -53px;
+  left: 40%;
+  color: white;
+  font-size: 18px;
+}
+div.dataTables_length select{
+  color: black;
+}
+#example_filter{
+    position: absolute;
+    top: -54px;
+    right: 20px;
+    color: white;
+    font-size: 18px;
+}
+}
   </style>
 </head>
 
@@ -126,52 +149,47 @@ $(document).ready(function() {
 
 <header class="main-header" style="background-color: #ffffff;">
   <div class="toplink">
-
   <ul>
-    @foreach($menus as $menu)
-      @if($menu->menu_id > 8)
-        <li>
-          <a target="_blank" rel="nofollow" href="{{$menu->menu_link}}">{{$menu->menu_label}} &nbsp&nbsp&nbsp|</a>
-        </li>
-      @endif
-    @endforeach
+    @foreach($menutops as $menu_top)
+    <li>
+      <a target="_blank" rel="nofollow" href="{{$menu_top->menu_top_link}}">{{$menu_top->menu_top_label}} &nbsp&nbsp&nbsp|</a>
+    </li>
+      @endforeach
   </ul>
  </div>
-   <div class="top-bar-title">
-   <a href="http://proposals.votedevin.com/" style="color: #ffffff;"><img src="../../resources/images/logo_header.png" style="padding-right: 10px;"> NY Speaks</a>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-            <i class="fa fa-bars"></i>Menu
-      </button>
-   </div>
+  <div class="top-bar-title">
+    <a href="http://proposals.votedevin.com/" style="color: #ffffff;"><img src="../../resources/images/logo.png" style="padding-right: 10px;"> Capital Budgets</a>
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+    <i class="fa fa-bars"></i>Menu</button>
+  </div>
 
       <nav class="navbar navbar-static-top" style="margin: 0; background-color: #ffffff; color: #000000; min-height: 48px;border-bottom: 1px solid #dee0e3;">
-      <div class="container">
+      <div class="container" style="width: 100%">
 
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 17.5%; height: 48px !important; box-shadow: none;">
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 12%; height: 48px !important; box-shadow: none;">
           <ul class="nav navbar-nav">
             <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_in"><b>Sign In</b></a></li>
             <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_up"><b>Register</b></a></li>
-            @foreach($menus as $menu)
-              @if($menu->menu_id < 9)
-                @if($menu->menu_id==5)
-                  <li class="active"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+            @foreach($menumains as $menu_main)
+                @if($menu_main->menu_main_label=='Projects')
+                  <li class="active"><a href="{{$menu_main->menu_main_link}}"><b>{{$menu_main->menu_main_label}} </b><span class="sr-only">(current)</span></a></li>
                 @else
-                <li ><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}} </b><span class="sr-only">(current)</span></a></li>
+                <li ><a href="{{$menu_main->menu_main_link}}"><b>{{$menu_main->menu_main_label}} </b><span class="sr-only">(current)</span></a></li>
                 @endif
-              @else
-                <li style="display: none;"><a href="{{$menu->menu_link}}"><b>{{$menu->menu_label}}</b></a></li>
-              @endif
+            @endforeach
+            @foreach($menutops as $menu_top)
+                <li style="display: none;"><a href="{{$menu_top->menu_top_link}}"><b>{{$menu_top->menu_top_label}}</b></a></li>
             @endforeach
           </ul>
         </div>
       </div>
         <div class="title" style="font-size: 16px;display: none;">
          <ul style="padding-top: 13px;">
-            <li><a href="http://budgets.votedevin.com/agencies" style="margin-right: 10px;"><b>Agencies</b></a></li>
-            <li><a href="http://budgets.votedevin.com/projects" style="margin-right: 10px;"><b>Projects</b></a></li>
-            <li><a href="http://budgets.votedevin.com/commitments" style="margin-right: 10px;"><b>Commitments</b></a></li>
+          @foreach($menulefts as $menu_left)
+            <li><a href="{{$menu_left->menu_left_link}}" style="margin-right: 10px;"><b>{{$menu_left->menu_left_label}}</b></a></li>
+          @endforeach
           </ul>
         </div>
       <!-- /.container-fluid -->
@@ -183,20 +201,26 @@ $(document).ready(function() {
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
-    <!-- Sidebar Menu -->
+      <!-- Sidebar user panel (optional) -->
+   
+
+      <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header"></li>
         <!-- Optionally, you can add icons to the links -->
       
-        <li><a href="/agencies"><i class="fa fa-tasks"></i> <span> Agencies </span></a></li>
-        <li class="active"><a href="/projects"><i class="ion ion-clipboard"></i> <span> Projects </span></a></li>
-        <li><a href="/commitments"><i class="fa fa-database"></i> <span> Commitments </span></a></li>
+        @foreach($menulefts as $index => $menu_left)
+          @if($index == 1)
+           <li class="active"><a href="{{$menu_left->menu_left_link}}"><i class="fa fa-circle-o"></i> <span>{{$menu_left->menu_left_label}} </span></a></li>
+          @else
+          <li><a href="{{$menu_left->menu_left_link}}"><i class="fa fa-circle-o"></i> <span>{{$menu_left->menu_left_label}} </span></a></li>
+          @endif
+        @endforeach
       </ul>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
   </aside>
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
@@ -209,20 +233,34 @@ $(document).ready(function() {
 
           <div class="box box-primary box-solid">
             <div class="box-header" style="background-color: #004A83;">
-            <h4>Projects</h4> 
-    
+                <div class="row">
+                  <div class="col-sm-2">
+                    <h4>Project</h4>
+                  </div>
+                  <div class="col-sm-4" style="padding-top: 3px;">
+                    <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Type
+                      <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                      @foreach ($projecttypes as $projecttype)
+                        <li><a href="/projecttype/{{$projecttype->project_type}}">{{$projecttype->project_type}}</a></li>
+                      @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
                 <table id="example" class="display nowrap" cellspacing="0" width="100%">
                 <thead>
-                <tr>
-                  <th>Project ID</th>
-                  <th>Agency</th>
-                  <th>Description</th>
-                  <th>#Commitments</th>
-                  <th>Total Cost &nbsp &nbsp&nbsp&nbsp&nbsp</th>
-                </tr>
+                  <tr>
+                    <th>Project ID</th>
+                    <th>Agency</th>
+                    <th>Description</th>
+                    <th>#Commitments</th>
+                    <th>Total Cost &nbsp &nbsp&nbsp&nbsp&nbsp</th>
+                  </tr>
                 </thead>
               <tbody>
                @foreach ($projects as $project)

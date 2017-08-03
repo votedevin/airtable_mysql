@@ -80,7 +80,7 @@
       <section class="content-header">
 
       <h1>
-        Ny - Data Sync <small> {{ Lang::get('pages.dashboard-access-level',['access' => $access] ) }} </small>
+        NY Speaks - Data Sync <small> {{ Lang::get('pages.dashboard-access-level',['access' => $access] ) }} </small>
       </h1>
 
       {!! Breadcrumbs::render() !!}
@@ -96,30 +96,27 @@
             <!-- /.box-header -->
             <div class="box-body">
             <div class="text-left">
-              <a href="http://52.34.171.110/agency.php">
+              <a href="http://52.10.101.155/agency.php">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 Update Agencies from Airtable
               </a>
               <h4>Updated Date: {{$agencyupdate->created_at}}</h4>
             </div>
             <div class="text-left">
-
-              <a href="http://52.34.171.110/project.php">
+              <a href="http://52.10.101.155/project.php">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 Update Projects from Airtable
               </a>
               <h4>Updated Date: {{$projectupdate->created_at}}</h4>
             </div>
             <div class="text-left">
-              <a href="http://52.34.171.110/commitment.php">
+              <a href="http://52.10.101.155/commitment.php">
                 <i class="fa fa-download" aria-hidden="true"></i>
                 Update Commitments from Airtable
               </a>
               <h4>Updated Date: {{$commitmentupdate->created_at}}</h4>
             </div>
             <!-- /.box-body -->
-
-
           </div>
         </div>
 
