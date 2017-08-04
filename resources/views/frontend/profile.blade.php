@@ -110,6 +110,14 @@ $(document).ready(function() {
 {
   display: none;
 }
+@media (max-width: 767px){
+  #nomainmenu{
+    display: block !important;
+  }
+  .skin-blue .main-header .navbar{
+    background-color: #ffffff;
+  }
+}
   </style>
 </head>
 
@@ -143,12 +151,40 @@ $(document).ready(function() {
     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
     <i class="fa fa-bars"></i>Menu</button>
   </div>
-
+      @if($mainmenu != NULL)
       <nav class="navbar navbar-static-top" style="margin: 0; background-color: #ffffff; color: #000000; min-height: 48px;border-bottom: 1px solid #dee0e3;">
-      <div class="container" style="width: 100%">
+        <div class="container" style="width: 100%">
 
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 12%; height: 48px !important; box-shadow: none;">
+            <ul class="nav navbar-nav">
+              <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_in"><b>Sign In</b></a></li>
+              <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_up"><b>Register</b></a></li>
+              @foreach($menumains as $menu_main)
+                  @if($menu_main->menu_main_label=='Projects')
+                    <li class="active"><a href="{{$menu_main->menu_main_link}}"><b>{{$menu_main->menu_main_label}} </b><span class="sr-only">(current)</span></a></li>
+                  @else
+                  <li ><a href="{{$menu_main->menu_main_link}}"><b>{{$menu_main->menu_main_label}} </b><span class="sr-only">(current)</span></a></li>
+                  @endif
+              @endforeach
+              @foreach($menutops as $menu_top)
+                  <li style="display: none;"><a href="{{$menu_top->menu_top_link}}"><b>{{$menu_top->menu_top_label}}</b></a></li>
+              @endforeach
+            </ul>
+          </div>
+        </div>
+        <div class="title" style="font-size: 16px;display: none;">
+          <ul style="padding-top: 13px;">
+            @foreach($menulefts as $menu_left)
+              <li><a href="{{$menu_left->menu_left_link}}" style="margin-right: 10px;"><b>{{$menu_left->menu_left_label}}</b></a></li>
+            @endforeach
+          </ul>
+        </div>
+        <!-- /.container-fluid -->
+      </nav>
+      @else
+      <nav class="navbar navbar-static-top" id="nomainmenu" style="display: none;">
         <div class="collapse navbar-collapse pull-left" id="navbar-collapse" style="    margin-left: 12%; height: 48px !important; box-shadow: none;">
           <ul class="nav navbar-nav">
             <li style="display: none;"><a href="http://proposals.votedevin.com/users/sign_in"><b>Sign In</b></a></li>
@@ -164,8 +200,7 @@ $(document).ready(function() {
                 <li style="display: none;"><a href="{{$menu_top->menu_top_link}}"><b>{{$menu_top->menu_top_label}}</b></a></li>
             @endforeach
           </ul>
-        </div>
-      </div>
+        </div>   
         <div class="title" style="font-size: 16px;display: none;">
          <ul style="padding-top: 13px;">
           @foreach($menulefts as $menu_left)
@@ -173,8 +208,8 @@ $(document).ready(function() {
           @endforeach
           </ul>
         </div>
-      <!-- /.container-fluid -->
-    </nav>
+      </nav>
+      @endif
 </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">

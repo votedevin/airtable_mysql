@@ -22,25 +22,6 @@ class AgencyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $agencys = DB::table('agencies')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -64,7 +45,8 @@ class AgencyController extends Controller
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
         $agencys = DB::table('agencies')->get();
-        return view('frontend.agencies', compact('agencys','menus','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menus','menutops','menulefts','menumains','mainmenu'));
     }
 
     /**
@@ -79,7 +61,8 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
 
 
@@ -89,7 +72,8 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
 
     public function projectsdesc()
@@ -98,7 +82,8 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
 
     public function projectsasc()
@@ -107,7 +92,8 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
 
     public function commitmentsdesc()
@@ -116,7 +102,8 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
 
     public function commitmentsasc()
@@ -125,7 +112,8 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
     public function find(Request $request)
     {
@@ -134,7 +122,8 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
     public function commitmentlink($id)
     {
@@ -142,142 +131,7 @@ class AgencyController extends Controller
         $menutops = DB::table('menu_top')->get();
         $menulefts = DB::table('menu_left')->get();
         $menumains = DB::table('menu_main')->get();
-        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.agencies', compact('agencys','menutops','menulefts','menumains','mainmenu'));
     }
-
-
-    public function totalcostdesc1()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $agencys = DB::table('agencies')->orderBy('agencies.total_project_cost','desc')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-
-
-    public function totalcostasc1()
-    {   
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $agencys = DB::table('agencies')->orderBy('agencies.total_project_cost','asc')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-
-    public function projectsdesc1()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $agencys = DB::table('agencies')->orderBy('agencies.projects','desc')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-
-    public function projectsasc1()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $agencys = DB::table('agencies')->orderBy('agencies.projects','asc')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-
-    public function commitmentsdesc1()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $agencys = DB::table('agencies')->orderBy('agencies.commitments','desc')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-
-    public function commitmentsasc1()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $agencys = DB::table('agencies')->orderBy('agencies.commitments','asc')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-    public function find1(Request $request)
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        $find = $request->input('find');
-        $agencys = DB::table('agencies')->where('magencyname',  'like', '%'.$find.'%')->get();
-        return view('pages.agencies', compact('agencys'))->withUser($user)->withAccess($access);
-    }
-
 }

@@ -24,25 +24,6 @@ class CommitmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-
-        $commitments = DB::table('commitments')->get();
-        return view('pages.commitments', compact('commitments'))->withUser($user)->withAccess($access);
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -56,7 +37,8 @@ class CommitmentController extends Controller
         $menumains = DB::table('menu_main')->get();
         $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains','mainmenu'));
     }
 
     /**
@@ -94,7 +76,8 @@ class CommitmentController extends Controller
         $menumains = DB::table('menu_main')->get();
         $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.noncitycost','desc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains','mainmenu'));
     }
 
     public function noncitycostasc()
@@ -104,7 +87,8 @@ class CommitmentController extends Controller
         $menumains = DB::table('menu_main')->get();
         $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.noncitycost','asc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains','mainmenu'));
     }
 
     public function citycostdesc()
@@ -114,7 +98,8 @@ class CommitmentController extends Controller
         $menumains = DB::table('menu_main')->get();
         $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.citycost','desc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains','mainmenu'));
     }
 
     public function citycostasc()
@@ -124,7 +109,8 @@ class CommitmentController extends Controller
         $menumains = DB::table('menu_main')->get();
         $agencys = DB::table('agencies')->get();
         $commitments = DB::table('commitments')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','commitments.projectid','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->orderBy('commitments.citycost','asc')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains','mainmenu'));
     }
 
 
@@ -136,25 +122,7 @@ class CommitmentController extends Controller
         $agencys = DB::table('agencies')->get();
         $find = $request->input('find');
         $commitments = DB::table('commitments')->where('commitmentdescription',  'like', '%'.$find.'%')->leftJoin('agencies', 'commitments.managingagency', '=', 'agency_recordid')->leftJoin('projects', 'commitments.projectid', '=', 'project_recordid')->select('commitments.id','agencies.magency','agencies.magencyname','projects.project_projectid','commitments.plancommdate','commitments.budgetline','commitments.fmsnumber','commitments.description','commitments.commitmentcode','commitments.citycost','commitments.noncitycost')->paginate(20);
-        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains'));
-    }
-
-    public function updatecommitment()
-    {
-        $user           = \Auth::user();
-        $userRole       = $user->hasRole('user');
-        $editorRole     = $user->hasRole('editor');
-        $adminRole      = $user->hasRole('administrator');
-
-        if($userRole)
-        {
-            $access = 'User';
-        } elseif ($editorRole) {
-            $access = 'Editor';
-        } elseif ($adminRole) {
-            $access = 'Administrator';
-        }
-        
-        return view('pages.commitments')->withUser($user)->withAccess($access);
+        $mainmenu = DB::table('menu_main')->value('menu_main_label');
+        return view('frontend.commitments', compact('commitments','menutops','menulefts','menumains','mainmenu'));
     }
 }
